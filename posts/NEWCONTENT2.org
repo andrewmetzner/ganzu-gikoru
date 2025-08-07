@@ -1,0 +1,10 @@
+#+POST-TITLE: hey this is a message to test out the site and this is a long title for a blog post 
+#+TIME: 2000-01-01T00:00:00-04:00
+#+SECTION:
+#+TAGS: #Alpha Omega Theta Lambda
+#+PUBLIC: YES
+
+#+BEGIN_EXPORT html
+Hello! This is a test post.
+We're checking how things look and making sure the layout is clean and easy to read.
+#+END_EXPORT

@@ -1,0 +1,47 @@
+#+BEGIN_EXPORT html
+<div class="site-frame">
+  <header class="blog-header">
+<div class="top-row">
+  <div class="left-group">
+    <span class="site-title"><a href="/blog">wizard blog</a></span>
+  </div>
+  <div class="right-lambda">
+    <a href="/" class="lambda-link">λ</a>
+  </div>
+</div>
+
+    <div class="bottom-row">
+      <nav class="nav-bar">
+        <div class="nav-left">
+          λ <a href="/blog">Main</a>
+          <a href="/blog/tags">Tags</a>
+          <a href="/blog/archive">Archive</a>
+          <a href="/blog/index.atom">Feed</a> λ
+        </div>
+      </nav>
+    </div>
+  </header>
+#+END_EXPORT
+
+
+# #+BEGIN_EXPORT html
+# <div class="site-frame">
+#   <header class="blog-header">
+#     <div class="top-row">
+#       <div class="left-group">
+#         <span class="site-title"><a href="/blog">wizard blog</a> [ <a href="/">λ</a> ]</span>
+#       </div>
+#     </div>
+
+#     <div class="bottom-row">
+#       <nav class="nav-bar">
+#         <div class="nav-left">
+#           λ <a href="/blog">Main</a>
+#           <a href="/blog/tags">Tags</a>
+#           <a href="/blog/archive">Archive</a>
+#           <a href="/blog/index.atom">Feed</a> λ
+#         </div>
+#       </nav>
+#     </div>
+#   </header>
+# #+END_EXPORT

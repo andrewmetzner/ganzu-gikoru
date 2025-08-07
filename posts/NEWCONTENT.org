@@ -1,0 +1,58 @@
+#+POST-TITLE: My title
+#+TIME: 1999-01-01T00:00:00-04:00
+#+SECTION:
+#+TAGS: #hi #hello #bye
+#+PUBLIC: YES
+
+#+BEGIN_EXPORT html
+<pre><code>Hello world</code></pre>
+
+<pre><code>
+def fibonacci(n):
+    """Return the nth Fibonacci number."""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Print the first 10 Fibonacci numbers
+for i in range(10):
+    print(f"fib({i}) = {fibonacci(i)}")
+</code></pre>
+
+<code>Hello there</code>
+
+<div class="code-quote">
+  This function is used to initialize the application state on first load.
+</div>
+
+#+END_EXPORT
+
+#+BEGIN_SRC python
+def fibonacci(n):
+    """Return the nth Fibonacci number."""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n - 1) + fibonacci(n - 2)
+
+# Print the first 10 Fibonacci numbers
+for i in range(10):
+    print(f"fib({i}) = {fibonacci(i)}")
+
+#+END_SRC
+
+#+BEGIN_EXPORT html
+
+<span class="spoiler">Spoiler one liner</span>
+
+<div class="spoiler">Spoiler alert</div>
+
+<div class="spoiler">Multiline<br> Spoiler</div>
+
+#+END_EXPORT
+
