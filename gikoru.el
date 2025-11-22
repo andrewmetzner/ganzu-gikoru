@@ -99,20 +99,91 @@
     (insert-file-contents file)
     (buffer-string)))
 
+
+;; LaTeX
+(setq org-html-with-latex 'mathjax)
+
+(setq org-html-mathjax-options
+      '((path "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js")))
+
+(setq org-html-mathjax-template
+"<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$'], ['\\\\(','\\\\)']],
+    displayMath: [['$$','$$'], ['\\\\[','\\\\]']]
+  }
+};
+</script>
+<script id=\"MathJax-script\" async
+        src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\">
+</script>")
+
 (defun gikoru--merge-org-content (body-content &optional page-title)
-  (let* ((raw-head (gikoru--read-file (expand-file-name "head.org" gikoru-merge-dir)))
-         (full-title (if page-title
-                         (format "%s" page-title)
-                       (format "Untitled")))
-         (processed-head (replace-regexp-in-string
-                          "%TITLE%" full-title raw-head)))
+
+  (let* ((head-file   (expand-file-name "head.org" gikoru-merge-dir))
+         (header-file (expand-file-name "header.org" gikoru-merge-dir))
+         (footer-file (expand-file-name "footer.org" gikoru-merge-dir))
+
+         (raw-head     (gikoru--read-file head-file))
+         (header       (gikoru--read-file header-file))
+         (footer       (gikoru--read-file footer-file))
+
+         (full-title (or page-title "Untitled"))
+         (processed-head
+          (replace-regexp-in-string "%TITLE%" full-title raw-head))
+
+         (mathjax-block
+          "#+BEGIN_EXPORT html
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$','$'], ['\\\\(','\\\\)']],
+    displayMath: [['$$','$$'], ['\\\\[','\\\\]']]
+  }
+};
+</script>
+<script id=\"MathJax-script\" async
+        src=\"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js\"></script>
+#+END_EXPORT\n")
+
+         ;; page wrapper open/close
+         (wrapper-open
+          "#+BEGIN_EXPORT html
+<div class=\"page-wrapper\">
+#+END_EXPORT\n")
+
+         (wrapper-close
+          "#+BEGIN_EXPORT html
+</div>
+#+END_EXPORT\n"))
+
     (message "Processed Head:\n%s" processed-head)
     (message "Body Content:\n%s" body-content)
+
     (concat
      processed-head "\n"
-     (gikoru--read-file (expand-file-name "header.org" gikoru-merge-dir)) "\n"
+     mathjax-block "\n"
+     header "\n"
+     wrapper-open
      body-content "\n"
-     (gikoru--read-file (expand-file-name "footer.org" gikoru-merge-dir)))))
+     wrapper-close
+     footer)))
+
+;; (defun gikoru--merge-org-content (body-content &optional page-title)
+;;   (let* ((raw-head (gikoru--read-file (expand-file-name "head.org" gikoru-merge-dir)))
+;;          (full-title (if page-title
+;;                          (format "%s" page-title)
+;;                        (format "Untitled")))
+;;          (processed-head (replace-regexp-in-string
+;;                           "%TITLE%" full-title raw-head)))
+;;     (message "Processed Head:\n%s" processed-head)
+;;     (message "Body Content:\n%s" body-content)
+;;     (concat
+;;      processed-head "\n"
+;;      (gikoru--read-file (expand-file-name "header.org" gikoru-merge-dir)) "\n"
+;;      body-content "\n"
+;;      (gikoru--read-file (expand-file-name "footer.org" gikoru-merge-dir)))))
 
 (defun gikoru--export-posts ()
   "Export all public Org posts from `gikoru-posts-dir` to HTML in `gikoru-output-posts-dir`."
